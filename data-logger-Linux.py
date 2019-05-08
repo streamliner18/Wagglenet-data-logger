@@ -57,14 +57,14 @@ try:
             newtimestr = time.strftime("%Y-%m-%d")
             if (timestr == newtimestr):
                 line = ser.readline().decode('utf-8')
-                output_file.write(line)
+                output_file.write(('%f,' % time.time())+line)
             else:
                 if not output_file.closed:
                     output_file.close()
                 timestr = newtimestr
                 write_to_file_path = timestr + ".txt"
                 output_file = open(write_to_file_path, "a+")
-        except Exception:
+        except Exception as e:
             print("Connection is severed. Waiting for reconnect.")
             # Must close the port before moving on
             if not ser.closed:
